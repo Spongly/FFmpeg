@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FFmpeg Commands - Cicada 3301</title>
+  <link rel="icon" href="/image/topg.png">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <h1 class="cicada-heading">FFmpeg Commands</h1>
+  <div class="dropdown">
+    <select id="command-select" onchange="showCommand()">
+      <option value="" disabled selected>Select a command</option>
+      <option value="command1">Convert video to another format</option>
+      <option value="command2">Trim video</option>
+      <option value="command3">Extract audio from video</option>
+      <option value="command4">Resize video</option>
+      <option value="command5">Concatenate multiple videos</option>
+      <option value="command6">Add watermark to video</option>
+      <option value="command7">Extract frames from video</option>
+      <option value="command8">Convert video to animated GIF</option>
+      <option value="command9">Extract specific segment from video</option>
+      <option value="command10">Convert video to audio</option>
+      <option value="command11">Add subtitles to video</option>
+      <option value="command12">Merge audio and video</option>
+      <option value="command13">Change video speed</option>
+      <option value="command14">Create a video slideshow from images</option>
+      <option value="command15">Extract metadata from video</option>
+      <option value="command16">Create a video with a black screen</option>
+      <option value="command17">Convert video to grayscale</option>
+      <option value="command18">Rotate video</option>
+      <option value="command19">Extract specific audio streams from video</option>
+      <option value="command20">Reverse video</option>
+    </select>
+  </div>
+  <div id="command-container">
+    <div id="command1" class="command">
+      <p class="command-description">Convert video to another format</p>
+      <code>ffmpeg -i input.mp4 output.mov</code>
+    </div>
+    <div id="command2" class="command">
+      <p class="command-description">Trim video</p>
+      <code>ffmpeg -ss 00:00:10 -i input.mp4 -t 00:00:30 -c:v copy -c:a copy output.mp4</code>
+    </div>
+    <div id="command3" class="command">
+      <p class="command-description">Extract audio from video</p>
+      <code>ffmpeg -i input.mp4 -vn -acodec copy output.aac</code>
+    </div>
+    <div id="command4" class="command">
+      <p class="command-description">Resize video</p>
+      <code>ffmpeg -i input.mp4 -vf "scale=640:480" output.mp4</code>
+    </div>
+    <div id="command5" class="command">
+      <p class="command-description">Concatenate multiple videos</p>
+      <code>ffmpeg -i input1.mp4 -i input2.mp4 -filter_complex "concat=n=2:v=1:a=1" output.mp4</code>
+    </div>
+    <div id="command6" class="command">
+      <p class="command-description">Add watermark to video</p>
+      <code>ffmpeg -i input.mp4 -i watermark.png -filter_complex "overlay=10:10" output.mp4</code>
+    </div>
+    <div id="command7" class="command">
+      <p class="command-description">Extract frames from video</p>
+      <code>ffmpeg -i input.mp4 -vf "fps=1" output%d.png</code>
+    </div>
+    <div id="command8" class="command">
+      <p class="command-description">Convert video to animated GIF</p>
+      <code>ffmpeg -i input.mp4 -vf "fps=10,scale=320:-1:flags=lanczos" -c:v gif output.gif</code>
+    </div>
+    <div id="command9" class="command">
+      <p class="command-description">Extract specific segment from video</p>
+      <code>ffmpeg -ss 00:00:30 -i input.mp4 -t 00:00:10 -c:v copy -c:a copy output.mp4</code>
+    </div>
+    <div id="command10" class="command">
+      <p class="command-description">Convert video to audio</p>
+      <code>ffmpeg -i input.mp4 -vn -acodec copy output.mp3</code>
+    </div>
+    <div id="command11" class="command">
+      <p class="command-description">Add subtitles to video</p>
+      <code>ffmpeg -i input.mp4 -i subtitles.srt -c:v copy -c:a copy -c:s mov_text output.mp4</code>
+    </div>
+    <div id="command12" class="command">
+      <p class="command-description">Merge audio and video</p>
+      <code>ffmpeg -i input.mp4 -i audio.mp3 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4</code>
+    </div>
+    <div id="command13" class="command">
+      <p class="command-description">Change video speed</p>
+      <code>ffmpeg -i input.mp4 -vf "setpts=0.5*PTS" output.mp4</code>
+    </div>
+    <div id="command14" class="command">
+      <p class="command-description">Create a video slideshow from images</p>
+      <code>ffmpeg -framerate 1/5 -i img%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4</code>
+    </div>
+    <div id="command15" class="command">
+      <p class="command-description">Extract metadata from video</p>
+      <code>ffprobe -v quiet -print_format json -show_format -show_streams input.mp4</code>
+    </div>
+    <div id="command16" class="command">
+      <p class="command-description">Create a video with a black screen</p>
+      <code>ffmpeg -f lavfi -i color=c=black:s=1280x720:d=10 -vf "drawtext=text='Cicada 3301':fontcolor=white:fontsize=48:x=(w-text_w)/2:y=(h-text_h)/2" output.mp4</code>
+    </div>
+    <div id="command17" class="command">
+      <p class="command-description">Convert video to grayscale</p>
+      <code>ffmpeg -i input.mp4 -vf "format=gray" output.mp4</code>
+    </div>
+    <div id="command18" class="command">
+      <p class="command-description">Rotate video</p>
+      <code>ffmpeg -i input.mp4 -vf "transpose=1" output.mp4</code>
+    </div>
+    <div id="command19" class="command">
+      <p class="command-description">Extract specific audio streams from video</p>
+      <code>ffmpeg -i input.mp4 -map 0:a:1 -c copy output.aac</code>
+    </div>
+    <div id="command20" class="command">
+      <p class="command-description">Reverse video</p>
+      <code>ffmpeg -i input.mp4 -vf "reverse" output.mp4</code>
+    </div>
+    <p style="text-align: center;">
+        <a href="https://github.com/spongly" target="_blank">
+          <img class="github-icon" src="image/github.png" alt="GitHub Icon">
+        </a>
+      </p>
+  <script src="script.js"></script>
+</body>
+</html>
